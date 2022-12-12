@@ -6,7 +6,11 @@ Sample Go-Lang Fiber Project
 - Please clone or download this repository.
 - Prepare postgres database, or use docker, you can type
 ```
-docker build --tag auth:auth .
+docker-compose up
+```
+OR
+```
+docker-compose up -d
 ```
 - add .env file to setup your database connection
 ```
