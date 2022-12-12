@@ -29,6 +29,11 @@ MYSQL_URL="root:secret@tcp(localhost:3306)/sample?parseTime=true"
 
 KEY_JWT="nafonFajriSecretKeyJWTdkdjfnfja"
 ```
+- `installing migrator tools` download from [golang migrate](https://github.com/golang-migrate/migrate) in release page
+- run
+```
+make migrate-up-mysql
+```
 - run the golang server
 ```
 go run main.go

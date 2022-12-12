@@ -8,6 +8,10 @@ import (
 
 	"github.com/destafajri/golang-fiber/exception"
 	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/golang-migrate/migrate/v4"
+    "github.com/golang-migrate/migrate/v4/database/mysql"
+    _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func NewMySQLDatabase(configuration Config) *sql.DB {
@@ -27,6 +31,13 @@ func NewMySQLDatabase(configuration Config) *sql.DB {
 	}
 
 	log.Println("MySQL Successfully connected!")
+	driver, err := mysql.WithInstance(database, &mysql.Config{})
+	exception.PanicIfNeeded(err)
+    m, err := migrate.NewWithDatabaseInstance(
+        "file://migrations/mysql",
+        "mysql", driver)
+	exception.PanicIfNeeded(err)
+    m.Up()
 
 	return database
 }

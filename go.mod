@@ -12,11 +12,23 @@ require (
 )
 
 require (
+	github.com/google/go-cmp v0.5.6 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/kr/pretty v0.2.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+)
+
+require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
-	github.com/golang/snappy v0.0.1 // indirect
+	github.com/golang-migrate/migrate/v4 v4.15.2
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-colorable v0.1.13 // indirect
