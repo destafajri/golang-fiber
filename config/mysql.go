@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/destafajri/golang-fiber/exception"
-	_ "github.com/lib/pq"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func NewMySQLDatabase(configuration Config) *sql.DB {
