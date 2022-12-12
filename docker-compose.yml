@@ -38,7 +38,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     depends_on:
-      - postgres
+      - mysql
     networks:
       - default
     ports:
