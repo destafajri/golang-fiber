@@ -9,8 +9,6 @@ import (
 // helper variable
 var (
 	JWT_SECRET_KEY = []byte(os.Getenv("KEY_JWT"))
-	ROLE           string
-	CLAIMS         JWTClaim
 )
 
 // claims struct
@@ -19,4 +17,12 @@ type JWTClaim struct {
 	Phone string
 	Role  string
 	jwt.RegisteredClaims
+}
+
+func GetRole(claims *JWTClaim) string{
+	return claims.Role
+}
+
+func GetClaims(claims *JWTClaim) *JWTClaim{
+	return claims
 }
