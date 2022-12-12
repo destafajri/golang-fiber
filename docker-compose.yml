@@ -16,6 +16,7 @@ services:
       MYSQL_DATABASE: sample
       MYSQL_ROOT_PASSWORD: secret
   postgres:
+    container_name: postgres
     image: postgres
     restart: always
     env_file:
@@ -26,16 +27,18 @@ services:
       - data:/var/lib/postgresql/data
   golang-mongo:
     container_name: golang-mongo
-    image: mongo:latest
+    image: mongo:4.4
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
-  server_app:
+  server_application:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - mysql
     env_file:
       - .env
     networks:

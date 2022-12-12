@@ -38,7 +38,7 @@ make migrate-up-mysql
 ```
 - run the golang server
 ```
-go run main.go
+make run
 ```
 
 ## Framework
