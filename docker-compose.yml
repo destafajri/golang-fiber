@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  golang-mongo:
+    container_name: golang-mongo
+    image: mongo:4.4
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+  server_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - database
+    networks:
+      - default
+    ports:
+    - "9000:9000"
+volumes:
+  data:
