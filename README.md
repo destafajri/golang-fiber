@@ -27,7 +27,7 @@ go run main.go
 - Web : GoFiber
 - Validation : Go-Ozzo
 - Configuration : GoDotEnv
-- Database : MongoDB
+- Database : MongoDB, Postgre(Supabase), MySQL
 
 ## Architecture
 
