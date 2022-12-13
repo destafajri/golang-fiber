@@ -16,7 +16,6 @@ func Controller(){
 	configuration 	:= config.New()
 	databaseMongo 	:= config.NewMongoDatabase(configuration)
 	databasePostgre := config.NewPostgreDatabase(configuration)
-	config.NewMySQLDatabase(configuration)
 
 	// Setup Repository
 	productRepository := repository.NewProductRepository(databaseMongo)
