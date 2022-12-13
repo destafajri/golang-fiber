@@ -31,6 +31,7 @@ func NewMySQLDatabase(configuration Config) *sql.DB {
 	}
 
 	log.Println("MySQL Successfully connected!")
+
 	driver, err := mysql.WithInstance(database, &mysql.Config{})
 	exception.PanicIfNeeded(err)
     m, err := migrate.NewWithDatabaseInstance(
@@ -39,6 +40,7 @@ func NewMySQLDatabase(configuration Config) *sql.DB {
 	exception.PanicIfNeeded(err)
     m.Up()
 
+	log.Println("Migration MySQL Successfully!")
 	return database
 }
 

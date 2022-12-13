@@ -31,6 +31,7 @@ func NewPostgreDatabase(configuration Config) *sql.DB {
 	}
 
 	log.Println("Postgres Successfully connected!")
+
 	driver, err := postgres.WithInstance(database, &postgres.Config{})
 	exception.PanicIfNeeded(err)
 
@@ -40,6 +41,8 @@ func NewPostgreDatabase(configuration Config) *sql.DB {
 	exception.PanicIfNeeded(err)
 
     m.Up() // or m.Step(2) if you want to explicitly set the number of migrations to run
+
+	log.Println("Migration Postgres Successfully!")
 
 	return database
 }

@@ -34,7 +34,7 @@ KEY_JWT="nafonFajriSecretKeyJWTdkdjfnfja"
 - `installing migrator tools` download from [golang migrate](https://github.com/golang-migrate/migrate) in release page
 - run
 ```
-make migrate-up-mysql
+make migrate-up
 ```
 - run the golang server
 ```
