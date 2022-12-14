@@ -1,10 +1,11 @@
 package middlewares
 
 import (
+	"reflect"
 	"strings"
 	"time"
-	"reflect"
 
+	"github.com/destafajri/golang-fiber/model"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -184,9 +185,17 @@ func makeCfg(config []Config) (cfg Config) {
 	if cfg.ErrorHandler == nil {
 		cfg.ErrorHandler = func(c *fiber.Ctx, err error) error {
 			if err.Error() == "Missing or malformed JWT" {
-				return c.Status(fiber.StatusBadRequest).SendString("Missing or malformed JWT")
+				return c.Status(fiber.StatusBadRequest).JSON(model.WebResponse{
+					Code:   fiber.StatusBadRequest,
+					Status: "Missing JWT",
+					Data:   "Missing or malformed JWT",
+				})
 			}
-			return c.Status(fiber.StatusUnauthorized).SendString("Invalid or expired JWT")
+			return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+				Code:   fiber.StatusUnauthorized,
+				Status: "Unauthorized",
+				Data:   "You're Unauthorized",
+			})
 		}
 	}
 	if cfg.KeySetURL != "" {
