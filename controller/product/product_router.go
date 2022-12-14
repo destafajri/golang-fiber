@@ -7,8 +7,8 @@ import (
 
 func (controller *ProductController, ) Route(app *fiber.App) {
 	// Setup Versioning Route
-	v1 := app.Group("/v1", middlewares.New(middlewares.Config{SigningKey: middlewares.JWT_SECRET_KEY}))
+	api := app.Group("/api", middlewares.New(middlewares.Config{SigningKey: middlewares.JWT_SECRET_KEY}))
 
-	v1.Post("/api/products", controller.Create)
-	v1.Get("/api/products", controller.List)
+	api.Post("/products", controller.Create)
+	api.Get("/products", controller.List)
 }
