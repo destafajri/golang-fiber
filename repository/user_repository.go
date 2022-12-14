@@ -8,8 +8,8 @@ import (
 
 type UserRepository interface {
 	Register(users *entity.UserEntity) error
-	// GetData(phone string) (*entity.UserEntity, error)
-	// Login(phone string) (*entity.UserEntity, error)
+	GetData(phone string) (*entity.UserEntity, error)
+	Login(phone string) (*entity.UserEntity, error)
 }
 
 type userImplementation struct {

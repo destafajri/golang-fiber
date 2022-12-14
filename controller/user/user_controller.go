@@ -41,3 +41,66 @@ func (controller *UserController) Register(c *fiber.Ctx) error {
 		Data:   response,
 	})
 }
+
+func (controller *UserController) GetData(c *fiber.Ctx) error {
+	var request model.GetUserPayload
+	
+	err := c.BodyParser(&request)
+	if err != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+			Code:   fiber.StatusUnprocessableEntity,
+			Status: "errors",
+			Data:   err.Error(),
+		})
+	}
+
+	response, err := controller.UserService.GetData(&request)
+	if err != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+			Code:   fiber.StatusUnprocessableEntity,
+			Status: "errors",
+			Data:   err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(model.WebResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   response,
+	})
+}
+
+func (controller *UserController) Login(c *fiber.Ctx) error {
+	var request model.LoginPayload
+	
+	err := c.BodyParser(&request)
+	if err != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+			Code:   fiber.StatusUnprocessableEntity,
+			Status: "errors",
+			Data:   err.Error(),
+		})
+	}
+
+	response, err := controller.UserService.Login(&request)
+	if err != nil {
+		if err.Error() == "You're Unauthorized" {
+			return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+				Code:   fiber.StatusUnauthorized,
+				Status: "errors",
+				Data:   err.Error(),
+			})
+		}
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+			Code:   fiber.StatusUnprocessableEntity,
+			Status: "errors",
+			Data:   err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(model.WebResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   response,
+	})
+}

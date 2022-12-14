@@ -7,8 +7,8 @@ import (
 
 type UserService interface {
 	Register(users *model.RegisterUserPayload) (*model.RegisterUserResponse, error)
-	// GetData(phone string) (model.GetUserResponse)
-	// Login(phone string) (model.LoginResponse)
+	GetData(*model.GetUserPayload) (*model.GetUserResponse , error)
+	Login(*model.LoginPayload) (*model.LoginResponse, error)
 }
 
 type userServiceimpl struct{
