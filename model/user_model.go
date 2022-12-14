@@ -14,6 +14,10 @@ type RegisterUserResponse struct {
 	Password string `json:"password"`
 }
 
+type GetUserPayload struct {
+	Phone    string `json:"phone"`
+}
+
 type GetUserResponse struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
@@ -22,6 +26,11 @@ type GetUserResponse struct {
 	Password string `json:"password"`
 }
 
-type LoginResponse struct{
+type LoginPayload struct {
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
+}
 
+type LoginResponse struct {
+	Token string `json:"token"`
 }

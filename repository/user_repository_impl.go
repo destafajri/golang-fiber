@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/destafajri/golang-fiber/config"
 	"github.com/destafajri/golang-fiber/entity"
+	"github.com/destafajri/golang-fiber/exception"
 )
 
 func(user *userImplementation) Register(users *entity.UserEntity) error{
@@ -21,62 +22,63 @@ func(user *userImplementation) Register(users *entity.UserEntity) error{
 		`
 	err := user.db.QueryRow(query, users.ID, users.Name, users.Phone, users.Role , users.Password).Scan(&users.ID)
 	if err != nil {
+		exception.PanicIfNeeded(err)
 		return err
 	}
 
 	return nil
 }
 
-// func(user userImplementation) GetData(phone string) (*entity.UserEntity, error){
-// 	_, cancel := config.NewPostgresContext()
-// 	defer cancel()
+func(user userImplementation) GetData(phone string) (*entity.UserEntity, error){
+	_, cancel := config.NewPostgresContext()
+	defer cancel()
 
-// 	var users entity.UserEntity
-// 	query := `SELECT id, name, phone, role, password FROM users where phone=$1`
+	var users entity.UserEntity
+	query := `SELECT id, name, phone, role, password FROM users where phone=$1`
 	
-// 	err := user.db.QueryRow(query, phone).Scan(
-// 		&users.ID,
-// 		&users.Name,
-// 		&users.Phone,
-// 		&users.Role,
-// 		&users.Password,
-// 	)
-// 	if err != nil {
-// 		exception.PanicIfNeeded(err)
-// 		return nil, err
-// 	}
+	err := user.db.QueryRow(query, phone).Scan(
+		&users.ID,
+		&users.Name,
+		&users.Phone,
+		&users.Role,
+		&users.Password,
+	)
+	if err != nil {
+		exception.PanicIfNeeded(err)
+		return nil, err
+	}
 
-// 	return &users, nil
-// }
+	return &users, nil
+}
 
-// func(user userImplementation) Login(phone string) (*entity.UserEntity, error){
-// 	_, cancel := config.NewPostgresContext()
-// 	defer cancel()
+func(user userImplementation) Login(phone string) (*entity.UserEntity, error){
+	_, cancel := config.NewPostgresContext()
+	defer cancel()
 
-// 	var users entity.UserEntity
+	var users entity.UserEntity
 
-// 	query := `SELECT
-// 				id,
-// 				name,
-// 				phone,
-// 				role,
-// 				password
-// 			FROM users
-// 			WHERE
-// 				phone=$1
-// 			`
-// 	err := user.db.QueryRow(query, phone).Scan(
-// 		&users.ID,
-// 		&users.Name,
-// 		&users.Phone,
-// 		&users.Role,
-// 		&users.Password,
-// 	)
+	query := `SELECT
+				id,
+				name,
+				phone,
+				role,
+				password
+			FROM users
+			WHERE
+				phone=$1
+			`
+	err := user.db.QueryRow(query, phone).Scan(
+		&users.ID,
+		&users.Name,
+		&users.Phone,
+		&users.Role,
+		&users.Password,
+	)
 
-// 	if err != nil {
-// 		exception.PanicIfNeeded(err)
-// 		return nil, err
-// 	}
+	if err != nil {
+		exception.PanicIfNeeded(err)
+		return nil, err
+	}
 
-// 	return &users, nil
-// }
+	return &users, nil
+}
