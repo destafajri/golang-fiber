@@ -1,38 +1,76 @@
 package middlewares
 
 import (
+	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func JWTMiddleware(c *fiber.Ctx) error {
-	HeaderAuthorization := "Authorization"
+type jwtExtractor func(c *fiber.Ctx) (string, error)
 
-	// get token value
-	tokenValue := c.Get(HeaderAuthorization)
-
-	// parsing authorization bearer
-	tokenString := strings.Replace(tokenValue, "Bearer ", "", -1)
-
-	// claims variable
-	claims := &JWTClaim{}
-
-	// parsing token jwt
-	tokenJwt, err := jwt.ParseWithClaims(tokenString, claims, func(t *jwt.Token) (interface{}, error) {
-		return JWT_SECRET_KEY, nil
-	})
-
-	// cek token validation
-	err = TokenValidation(c, tokenJwt, err)
-	if err != nil {
-		return err
+// jwtKeyFunc returns a function that returns signing key for given token.
+func jwtKeyFunc(config Config) jwt.Keyfunc {
+	return func(t *jwt.Token) (interface{}, error) {
+		// Check the signing method
+		if t.Method.Alg() != config.SigningMethod {
+			return nil, fmt.Errorf("Unexpected jwt signing method=%v", t.Header["alg"])
+		}
+		if len(config.SigningKeys) > 0 {
+			if kid, ok := t.Header["kid"].(string); ok {
+				if key, ok := config.SigningKeys[kid]; ok {
+					return key, nil
+				}
+			}
+			return nil, fmt.Errorf("Unexpected jwt key id=%v", t.Header["kid"])
+		}
+		return config.SigningKey, nil
 	}
+}
 
-	// assign role
-	GetRole(claims)
-	GetClaims(claims)
+// jwtFromHeader returns a function that extracts token from the request header.
+func jwtFromHeader(header string, authScheme string) func(c *fiber.Ctx) (string, error) {
+	return func(c *fiber.Ctx) (string, error) {
+		auth := c.Get(header)
+		l := len(authScheme)
+		if len(auth) > l+1 && strings.EqualFold(auth[:l], authScheme) {
+			return strings.TrimSpace(auth[l:]), nil
+		}
+		return "", errors.New("Missing or malformed JWT")
+	}
+}
 
-	return c.JSON(fiber.Map{"token": tokenJwt})
+// jwtFromQuery returns a function that extracts token from the query string.
+func jwtFromQuery(param string) func(c *fiber.Ctx) (string, error) {
+	return func(c *fiber.Ctx) (string, error) {
+		token := c.Query(param)
+		if token == "" {
+			return "", errors.New("Missing or malformed JWT")
+		}
+		return token, nil
+	}
+}
+
+// jwtFromParam returns a function that extracts token from the url param string.
+func jwtFromParam(param string) func(c *fiber.Ctx) (string, error) {
+	return func(c *fiber.Ctx) (string, error) {
+		token := c.Params(param)
+		if token == "" {
+			return "", errors.New("Missing or malformed JWT")
+		}
+		return token, nil
+	}
+}
+
+// jwtFromCookie returns a function that extracts token from the named cookie.
+func jwtFromCookie(name string) func(c *fiber.Ctx) (string, error) {
+	return func(c *fiber.Ctx) (string, error) {
+		token := c.Cookies(name)
+		if token == "" {
+			return "", errors.New("Missing or malformed JWT")
+		}
+		return token, nil
+	}
 }
