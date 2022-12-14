@@ -191,11 +191,33 @@ func makeCfg(config []Config) (cfg Config) {
 					Data:   "Missing or malformed JWT",
 				})
 			}
-			return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
-				Code:   fiber.StatusUnauthorized,
-				Status: "Unauthorized",
-				Data:   "You're Unauthorized",
-			})
+
+			v, _ := err.(*jwt.ValidationError)
+			switch v.Errors {
+			case jwt.ValidationErrorSignatureInvalid:
+				// token invalid
+				response := "Unauthorized"
+				return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+					Code:   fiber.StatusUnauthorized,
+					Status: "Invalid Signature",
+					Data:   response,
+				})
+			case jwt.ValidationErrorExpired:
+				// token expired
+				response := "Unauthorized, Token expired!"
+				return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+					Code:   fiber.StatusUnauthorized,
+					Status: "Token Expired",
+					Data:   response,
+				})
+			default:
+				response := "You're Unauthorized"
+				return c.Status(fiber.StatusBadRequest).JSON(model.WebResponse{
+					Code:   fiber.StatusBadRequest,
+					Status: "Unauthorized",
+					Data:   response,
+				})
+			}
 		}
 	}
 	if cfg.KeySetURL != "" {
