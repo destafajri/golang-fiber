@@ -2,11 +2,13 @@ package config
 
 import (
 	"context"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/destafajri/golang-fiber/exception"
+	"log"
 	"strconv"
 	"time"
+
+	"github.com/destafajri/golang-fiber/exception"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func NewMongoDatabase(configuration Config) *mongo.Database {
@@ -35,6 +37,8 @@ func NewMongoDatabase(configuration Config) *mongo.Database {
 	exception.PanicIfNeeded(err)
 
 	database := client.Database(configuration.Get("MONGO_DATABASE"))
+	log.Println("MongoDB Successfully connected!")
+	
 	return database
 }
 
