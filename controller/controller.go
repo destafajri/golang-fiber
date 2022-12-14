@@ -1,6 +1,6 @@
 package controller
 
-import(
+import (
 	"github.com/destafajri/golang-fiber/config"
 	product "github.com/destafajri/golang-fiber/controller/product"
 	user "github.com/destafajri/golang-fiber/controller/user"
