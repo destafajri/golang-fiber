@@ -1,6 +1,6 @@
 # Go-Lang Fiber Project
 
-Sample Go-Lang Fiber Project
+Sample Go-Lang Fiber Project Structure
 
 ## How to use
 - Please clone or download this repository.
