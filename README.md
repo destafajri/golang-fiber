@@ -54,6 +54,6 @@ Controller -> Service -> Repository
 
 ## Addition 
 
-Entity is representing database table
-Model is representing payload and response
-Helper is representing anything what you need to help your coding process
+- Entity is representing database table
+- Model is representing payload and response
+- Helper is representing anything what you need to help your coding process
