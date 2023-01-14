@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/destafajri/golang-fiber/app/responses"
+	"github.com/destafajri/golang-fiber/responses"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
