@@ -1,9 +1,9 @@
 package product
 
 import (
-	"github.com/destafajri/golang-fiber/app/model"
+	"github.com/destafajri/golang-fiber/internal/model"
 	"github.com/destafajri/golang-fiber/responses"
-	"github.com/destafajri/golang-fiber/app/service"
+	"github.com/destafajri/golang-fiber/internal/service"
 	"github.com/destafajri/golang-fiber/exception"
 
 	"github.com/gofiber/fiber/v2"

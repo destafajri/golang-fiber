@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/destafajri/golang-fiber/config"
-	"github.com/destafajri/golang-fiber/app/entity"
+	"github.com/destafajri/golang-fiber/internal/entity"
 	"github.com/destafajri/golang-fiber/exception"
 )
 

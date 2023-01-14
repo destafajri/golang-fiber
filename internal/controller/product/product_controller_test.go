@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/destafajri/golang-fiber/app/entity"
-	"github.com/destafajri/golang-fiber/app/model"
+	"github.com/destafajri/golang-fiber/internal/entity"
+	"github.com/destafajri/golang-fiber/internal/model"
 	"github.com/destafajri/golang-fiber/responses"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

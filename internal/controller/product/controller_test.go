@@ -1,8 +1,8 @@
 package product
 
 import (
-	"github.com/destafajri/golang-fiber/app/repository"
-	"github.com/destafajri/golang-fiber/app/service"
+	"github.com/destafajri/golang-fiber/internal/repository"
+	"github.com/destafajri/golang-fiber/internal/service"
 	"github.com/destafajri/golang-fiber/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"

@@ -1,7 +1,7 @@
 package product
 
 import (
-	"github.com/destafajri/golang-fiber/app/middlewares"
+	"github.com/destafajri/golang-fiber/internal/middlewares"
 	"github.com/gofiber/fiber/v2"
 )
 

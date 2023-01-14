@@ -1,7 +1,7 @@
 package validation
 
 import (
-	"github.com/destafajri/golang-fiber/app/model"
+	"github.com/destafajri/golang-fiber/internal/model"
 	"github.com/destafajri/golang-fiber/exception"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 )

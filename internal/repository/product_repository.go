@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/destafajri/golang-fiber/app/entity"
+import "github.com/destafajri/golang-fiber/internal/entity"
 
 
 type ProductRepository interface {

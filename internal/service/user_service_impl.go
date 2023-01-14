@@ -4,9 +4,9 @@ import (
 	"errors"
 	_ "strconv"
 
-	"github.com/destafajri/golang-fiber/app/entity"
-	"github.com/destafajri/golang-fiber/app/model"
-	"github.com/destafajri/golang-fiber/app/validation"
+	"github.com/destafajri/golang-fiber/internal/entity"
+	"github.com/destafajri/golang-fiber/internal/model"
+	"github.com/destafajri/golang-fiber/internal/validation"
 	"github.com/destafajri/golang-fiber/helper"
 	"github.com/google/uuid"
 )

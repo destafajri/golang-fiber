@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/destafajri/golang-fiber/app/entity"
-	"github.com/destafajri/golang-fiber/app/model"
-	"github.com/destafajri/golang-fiber/app/validation"
+	"github.com/destafajri/golang-fiber/internal/entity"
+	"github.com/destafajri/golang-fiber/internal/model"
+	"github.com/destafajri/golang-fiber/internal/validation"
 )
 
 func (service *productServiceImpl) Create(request model.CreateProductRequest) (response model.CreateProductResponse) {
