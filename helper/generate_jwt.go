@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	middleware"github.com/destafajri/golang-fiber/app/middlewares"
+	middleware"github.com/destafajri/golang-fiber/internal/middlewares"
 	"github.com/golang-jwt/jwt/v4"
 )
 
