@@ -1,11 +1,12 @@
 package product
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"github.com/destafajri/golang-fiber/exception"
 	"github.com/destafajri/golang-fiber/model"
+	"github.com/destafajri/golang-fiber/model/responses"
 	"github.com/destafajri/golang-fiber/service"
+	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type ProductController struct {
@@ -24,7 +25,7 @@ func (controller *ProductController) Create(c *fiber.Ctx) error {
 	exception.PanicIfNeeded(err)
 
 	response := controller.ProductService.Create(request)
-	return c.JSON(model.WebResponse{
+	return c.JSON(responses.WebResponse{
 		Code:   200,
 		Status: "OK",
 		Data:   response,
@@ -32,10 +33,10 @@ func (controller *ProductController) Create(c *fiber.Ctx) error {
 }
 
 func (controller *ProductController) List(c *fiber.Ctx) error {
-	responses := controller.ProductService.List()
-	return c.JSON(model.WebResponse{
+	respons := controller.ProductService.List()
+	return c.JSON(responses.WebResponse{
 		Code:   200,
 		Status: "OK",
-		Data:   responses,
+		Data:   respons,
 	})
 }

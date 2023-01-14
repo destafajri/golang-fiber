@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/destafajri/golang-fiber/model"
+	"github.com/destafajri/golang-fiber/model/responses"
 	"github.com/destafajri/golang-fiber/service"
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,7 +20,7 @@ func (controller *UserController) Register(c *fiber.Ctx) error {
 	
 	err := c.BodyParser(&request)
 	if err != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
@@ -28,14 +29,14 @@ func (controller *UserController) Register(c *fiber.Ctx) error {
 
 	response, err := controller.UserService.Register(&request)
 	if err != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
 		})
 	}
 
-	return c.Status(fiber.StatusCreated).JSON(model.WebResponse{
+	return c.Status(fiber.StatusCreated).JSON(responses.WebResponse{
 		Code:   201,
 		Status: "OK",
 		Data:   response,
@@ -47,7 +48,7 @@ func (controller *UserController) GetData(c *fiber.Ctx) error {
 	
 	err := c.BodyParser(&request)
 	if err != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
@@ -56,14 +57,14 @@ func (controller *UserController) GetData(c *fiber.Ctx) error {
 
 	response, err := controller.UserService.GetData(&request)
 	if err != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
 		})
 	}
 
-	return c.Status(fiber.StatusOK).JSON(model.WebResponse{
+	return c.Status(fiber.StatusOK).JSON(responses.WebResponse{
 		Code:   200,
 		Status: "OK",
 		Data:   response,
@@ -75,7 +76,7 @@ func (controller *UserController) Login(c *fiber.Ctx) error {
 	
 	err := c.BodyParser(&request)
 	if err != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
@@ -85,20 +86,20 @@ func (controller *UserController) Login(c *fiber.Ctx) error {
 	response, err := controller.UserService.Login(&request)
 	if err != nil {
 		if err.Error() == "You're Unauthorized" {
-			return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+			return c.Status(fiber.StatusUnauthorized).JSON(responses.WebResponse{
 				Code:   fiber.StatusUnauthorized,
 				Status: "errors",
 				Data:   err.Error(),
 			})
 		}
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(model.WebResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
 			Code:   fiber.StatusUnprocessableEntity,
 			Status: "errors",
 			Data:   err.Error(),
 		})
 	}
 
-	return c.Status(fiber.StatusOK).JSON(model.WebResponse{
+	return c.Status(fiber.StatusOK).JSON(responses.WebResponse{
 		Code:   200,
 		Status: "OK",
 		Data:   response,

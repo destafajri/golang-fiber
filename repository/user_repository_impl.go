@@ -1,16 +1,18 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/destafajri/golang-fiber/config"
 	"github.com/destafajri/golang-fiber/entity"
 	"github.com/destafajri/golang-fiber/exception"
 )
 
-func(user *userImplementation) Register(users *entity.UserEntity) error{
+func (user *userImplementation) Register(users *entity.UserEntity) error {
 	_, cancel := config.NewPostgresContext()
 	defer cancel()
 
-	query :=`INSERT INTO users(
+	query := `INSERT INTO users(
 			id,
 			name, 
 			phone,
@@ -20,7 +22,7 @@ func(user *userImplementation) Register(users *entity.UserEntity) error{
 		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id
 		`
-	err := user.db.QueryRow(query, users.ID, users.Name, users.Phone, users.Role , users.Password).Scan(&users.ID)
+	err := user.db.QueryRow(query, users.ID, users.Name, users.Phone, users.Role, users.Password).Scan(&users.ID)
 	if err != nil {
 		exception.PanicIfNeeded(err)
 		return err
@@ -29,13 +31,13 @@ func(user *userImplementation) Register(users *entity.UserEntity) error{
 	return nil
 }
 
-func(user userImplementation) GetData(phone string) (*entity.UserEntity, error){
+func (user userImplementation) GetData(phone string) (*entity.UserEntity, error) {
 	_, cancel := config.NewPostgresContext()
 	defer cancel()
 
 	var users entity.UserEntity
 	query := `SELECT id, name, phone, role, password FROM users where phone=$1`
-	
+
 	err := user.db.QueryRow(query, phone).Scan(
 		&users.ID,
 		&users.Name,
@@ -44,14 +46,13 @@ func(user userImplementation) GetData(phone string) (*entity.UserEntity, error){
 		&users.Password,
 	)
 	if err != nil {
-		exception.PanicIfNeeded(err)
-		return nil, err
+		return nil, errors.New("User Not Found")
 	}
 
 	return &users, nil
 }
 
-func(user userImplementation) Login(phone string) (*entity.UserEntity, error){
+func (user userImplementation) Login(phone string) (*entity.UserEntity, error) {
 	_, cancel := config.NewPostgresContext()
 	defer cancel()
 

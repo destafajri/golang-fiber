@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/destafajri/golang-fiber/model"
+	"github.com/destafajri/golang-fiber/model/responses"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -185,10 +185,10 @@ func makeCfg(config []Config) (cfg Config) {
 	if cfg.ErrorHandler == nil {
 		cfg.ErrorHandler = func(c *fiber.Ctx, err error) error {
 			if err.Error() == "Missing or malformed JWT" {
-				return c.Status(fiber.StatusBadRequest).JSON(model.WebResponse{
+				return c.Status(fiber.StatusBadRequest).JSON(responses.WebResponse{
 					Code:   fiber.StatusBadRequest,
 					Status: "Missing JWT",
-					Data:   "Missing or malformed JWT",
+					Message:   "Missing or malformed JWT",
 				})
 			}
 
@@ -197,25 +197,25 @@ func makeCfg(config []Config) (cfg Config) {
 			case jwt.ValidationErrorSignatureInvalid:
 				// token invalid
 				response := "Unauthorized"
-				return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+				return c.Status(fiber.StatusUnauthorized).JSON(responses.WebResponse{
 					Code:   fiber.StatusUnauthorized,
 					Status: "Invalid Signature",
-					Data:   response,
+					Message:   response,
 				})
 			case jwt.ValidationErrorExpired:
 				// token expired
 				response := "Unauthorized, Token expired!"
-				return c.Status(fiber.StatusUnauthorized).JSON(model.WebResponse{
+				return c.Status(fiber.StatusUnauthorized).JSON(responses.WebResponse{
 					Code:   fiber.StatusUnauthorized,
 					Status: "Token Expired",
-					Data:   response,
+					Message:   response,
 				})
 			default:
 				response := "You're Unauthorized"
-				return c.Status(fiber.StatusBadRequest).JSON(model.WebResponse{
+				return c.Status(fiber.StatusBadRequest).JSON(responses.WebResponse{
 					Code:   fiber.StatusBadRequest,
 					Status: "Unauthorized",
-					Data:   response,
+					Message:   response,
 				})
 			}
 		}

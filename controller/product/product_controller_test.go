@@ -3,13 +3,15 @@ package product
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/google/uuid"
-	"github.com/stretchr/testify/assert"
-	"github.com/destafajri/golang-fiber/entity"
-	"github.com/destafajri/golang-fiber/model"
 	"io/ioutil"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/destafajri/golang-fiber/entity"
+	"github.com/destafajri/golang-fiber/model"
+	"github.com/destafajri/golang-fiber/model/responses"
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProductController_Create(t *testing.T) {
@@ -30,7 +32,7 @@ func TestProductController_Create(t *testing.T) {
 	assert.Equal(t, 200, response.StatusCode)
 	responseBody, _ := ioutil.ReadAll(response.Body)
 
-	webResponse := model.WebResponse{}
+	webResponse := responses.WebResponse{}
 	json.Unmarshal(responseBody, &webResponse)
 	assert.Equal(t, 200, webResponse.Code)
 	assert.Equal(t, "OK", webResponse.Status)
@@ -62,7 +64,7 @@ func TestProductController_List(t *testing.T) {
 	assert.Equal(t, 200, response.StatusCode)
 	responseBody, _ := ioutil.ReadAll(response.Body)
 
-	webResponse := model.WebResponse{}
+	webResponse := responses.WebResponse{}
 	json.Unmarshal(responseBody, &webResponse)
 	assert.Equal(t, 200, webResponse.Code)
 	assert.Equal(t, "OK", webResponse.Status)
