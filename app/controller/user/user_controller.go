@@ -1,9 +1,9 @@
 package user
 
 import (
-	"github.com/destafajri/golang-fiber/model"
-	"github.com/destafajri/golang-fiber/model/responses"
-	"github.com/destafajri/golang-fiber/service"
+	"github.com/destafajri/golang-fiber/app/model"
+	"github.com/destafajri/golang-fiber/responses"
+	"github.com/destafajri/golang-fiber/app/service"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,7 +17,7 @@ func NewUserController(UserService *service.UserService) UserController {
 
 func (controller *UserController) Register(c *fiber.Ctx) error {
 	var request model.RegisterUserPayload
-	
+
 	err := c.BodyParser(&request)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
@@ -45,7 +45,7 @@ func (controller *UserController) Register(c *fiber.Ctx) error {
 
 func (controller *UserController) GetData(c *fiber.Ctx) error {
 	var request model.GetUserPayload
-	
+
 	err := c.BodyParser(&request)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
@@ -73,7 +73,7 @@ func (controller *UserController) GetData(c *fiber.Ctx) error {
 
 func (controller *UserController) Login(c *fiber.Ctx) error {
 	var request model.LoginPayload
-	
+
 	err := c.BodyParser(&request)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{

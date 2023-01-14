@@ -1,12 +1,12 @@
 package controller
 
 import (
+	"github.com/destafajri/golang-fiber/app/controller/product"
+	"github.com/destafajri/golang-fiber/app/controller/user"
+	"github.com/destafajri/golang-fiber/app/repository"
+	"github.com/destafajri/golang-fiber/app/service"
 	"github.com/destafajri/golang-fiber/config"
-	product "github.com/destafajri/golang-fiber/controller/product"
-	user "github.com/destafajri/golang-fiber/controller/user"
 	"github.com/destafajri/golang-fiber/exception"
-	"github.com/destafajri/golang-fiber/repository"
-	"github.com/destafajri/golang-fiber/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )

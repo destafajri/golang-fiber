@@ -1,9 +1,9 @@
 package validation
 
 import (
-	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/destafajri/golang-fiber/app/model"
 	"github.com/destafajri/golang-fiber/exception"
-	"github.com/destafajri/golang-fiber/model"
+	validation "github.com/go-ozzo/ozzo-validation/v4"
 )
 
 func Validate(request model.CreateProductRequest) {

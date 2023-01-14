@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/destafajri/golang-fiber/entity"
+	"github.com/destafajri/golang-fiber/app/entity"
 )
 
 type UserRepository interface {

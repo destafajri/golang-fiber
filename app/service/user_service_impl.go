@@ -4,10 +4,10 @@ import (
 	"errors"
 	_ "strconv"
 
-	"github.com/destafajri/golang-fiber/entity"
+	"github.com/destafajri/golang-fiber/app/entity"
+	"github.com/destafajri/golang-fiber/app/model"
+	"github.com/destafajri/golang-fiber/app/validation"
 	"github.com/destafajri/golang-fiber/helper"
-	"github.com/destafajri/golang-fiber/model"
-	"github.com/destafajri/golang-fiber/validation"
 	"github.com/google/uuid"
 )
 

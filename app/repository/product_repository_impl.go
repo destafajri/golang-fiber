@@ -1,11 +1,11 @@
 package repository
 
 import (
+	"github.com/destafajri/golang-fiber/app/entity"
+	"github.com/destafajri/golang-fiber/config"
+	"github.com/destafajri/golang-fiber/exception"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"github.com/destafajri/golang-fiber/config"
-	"github.com/destafajri/golang-fiber/entity"
-	"github.com/destafajri/golang-fiber/exception"
 )
 
 func NewProductRepository(database *mongo.Database) ProductRepository {
