@@ -28,7 +28,7 @@ make run
 - Web : GoFiber
 - Validation : Go-Ozzo
 - Configuration : GoDotEnv
-- Database : MongoDB, Postgre(Supabase), MySQL
+- Database : MongoDB, Postgres, MySQL
 
 ## Architecture
 
