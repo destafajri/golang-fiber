@@ -52,5 +52,3 @@ volumes:
     name: mysql_db_data
   postgres-data:
     name: postgres-data
-  data:
-    name: data
