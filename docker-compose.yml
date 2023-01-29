@@ -17,16 +17,16 @@ services:
       MYSQL_ROOT_PASSWORD: secret
   postgres:
     container_name: postgres
-    image: postgres
+    image: postgres:latest
     restart: always
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=mydb
     ports:
-      - "5432:5432"
-    volumes:
-      - data:/var/lib/postgresql/data
-  golang-mongo:
-    container_name: golang-mongo
+      - 5432:5432
+  mongo:
+    container_name: mongo
     image: mongo:4.4
     ports:
       - 27017:27017
@@ -38,7 +38,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - mysql
+      - postgres
     env_file:
       - .env
     networks:
@@ -46,7 +46,7 @@ services:
     ports:
     - "9000:9000"
 volumes:
-  mysql_db_data:
-    name: mysql_db_data
+  postgres_db_data:
+    name: postgres_db_data
   data:
     name: data
