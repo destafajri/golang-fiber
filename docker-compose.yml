@@ -19,16 +19,16 @@ services:
     container_name: postgres
     image: postgres:latest
     restart: always
-    environment:
-      - POSTGRES_USER: myuser
-      - POSTGRES_PASSWORD: mypassword
-      - POSTGRES_DB: mydb
+    volumes:
+      - postgres-data:/var/lib/postgresql
     expose:
       - 5432
     ports:
       - 5432:5432
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
   mongo:
     container_name: mongo
     image: mongo:4.4
@@ -50,7 +50,7 @@ services:
 volumes:
   mysql_db_data:
     name: mysql_db_data
-  data:
-    name: data
   postgres-data:
     name: postgres-data
+  data:
+    name: data
