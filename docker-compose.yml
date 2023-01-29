@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - postgres
+      - mysql
     env_file:
       - .env
     networks:
@@ -50,7 +50,9 @@ services:
     ports:
     - "9000:9000"
 volumes:
-  postgres_db_data:
-    name: postgres_db_data
+  mysql_db_data:
+    name: mysql_db_data
   data:
     name: data
+  postgres-data:
+    name: postgres-data
