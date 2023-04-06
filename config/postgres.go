@@ -9,9 +9,9 @@ import (
 	"github.com/destafajri/golang-fiber/exception"
 	_ "github.com/lib/pq"
 
-	"github.com/golang-migrate/migrate/v4"
-    "github.com/golang-migrate/migrate/v4/database/postgres"
-    _ "github.com/golang-migrate/migrate/v4/source/file"
+	// "github.com/golang-migrate/migrate/v4"
+    // "github.com/golang-migrate/migrate/v4/database/postgres"
+    // _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func NewPostgreDatabase(configuration Config) *sql.DB {
@@ -19,11 +19,8 @@ func NewPostgreDatabase(configuration Config) *sql.DB {
 	defer cancel()
 
 	database, err := sql.Open("postgres", configuration.Get("POSTGRES_URL"))
-	if err != nil {
-		panic(err)
-	}
-
 	exception.PanicIfNeeded(err)
+	defer database.Close()
 
 	err = database.Ping()
 	if err != nil {
@@ -32,17 +29,17 @@ func NewPostgreDatabase(configuration Config) *sql.DB {
 
 	log.Println("Postgres Successfully connected!")
 
-	driver, err := postgres.WithInstance(database, &postgres.Config{})
-	exception.PanicIfNeeded(err)
+	// driver, err := postgres.WithInstance(database, &postgres.Config{})
+	// exception.PanicIfNeeded(err)
 
-    m, err := migrate.NewWithDatabaseInstance(
-        "file://migrations/postgres",
-        "postgres", driver)
-	exception.PanicIfNeeded(err)
+    // m, err := migrate.NewWithDatabaseInstance(
+    //     "file://migrations/postgres",
+    //     "postgres", driver)
+	// exception.PanicIfNeeded(err)
 
-    m.Up() // or m.Step(2) if you want to explicitly set the number of migrations to run
+    // m.Up() // or m.Step(2) if you want to explicitly set the number of migrations to run
 
-	log.Println("Migration Postgres Successfully!")
+	// log.Println("Migration Postgres Successfully!")
 
 	return database
 }

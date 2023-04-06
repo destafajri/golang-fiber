@@ -1,23 +1,23 @@
 version: "3.9"
 
 services:
-  mysql:
-    container_name: mysql
-    image: mysql:latest
-    restart: always
-    command: --default-authentication-plugin=caching_sha2_password
-    volumes:
-      - mysql_db_data:/var/lib/mysql
-    expose:
-      - 3306
+  server:
+    container_name: golang-server
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
     ports:
-      - 3306:3306
-    environment:
-      MYSQL_DATABASE: sample
-      MYSQL_ROOT_PASSWORD: secret
-  postgres:
-    container_name: postgres
-    image: postgres:latest
+      - 9000:9000
+    volumes:
+      - service-golang:/golang
+    network_mode: golang-fiber_golang-network
+
+  postgres-gofiber:
+    container_name: postgres-gofiber
+    image: postgres:alpine
     restart: always
     volumes:
       - postgres-data:/var/lib/postgresql
@@ -26,29 +26,49 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: myuser
+      POSTGRES_USER: golang_user
       POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
-  mongo:
-    container_name: mongo
-    image: mongo:4.4
+      POSTGRES_DB: golang_db
+    networks:
+      - golang-network
+  mysql-gofiber:
+    container_name: mysql-gofiber
+    image: mysql:latest
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: sample
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - golang-network
+  mongodb-gofiber:
+    container_name: mongo-gofiber
+    image: mongo:latest
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
-  server_application:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file:
-      - .env
+    volumes:
+      - mongo-data:/var/lib/mongo
     networks:
-      - default
-    ports:
-    - "9000:9000"
+      - golang-network
+
 volumes:
-  mysql_db_data:
-    name: mysql_db_data
   postgres-data:
     name: postgres-data
+  mysql-data:
+    name: mysql-data
+  mongo-data:
+    name: mongo-data
+  service-golang:
+    name: service-golang
+
+networks:
+  golang-network:
+    driver: bridge
