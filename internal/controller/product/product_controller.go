@@ -1,10 +1,11 @@
 package product
 
 import (
+	"github.com/destafajri/golang-fiber/internal/model"
+	"github.com/destafajri/golang-fiber/responses"
+	"github.com/destafajri/golang-fiber/internal/service"
 	"github.com/destafajri/golang-fiber/exception"
-	"github.com/destafajri/golang-fiber/model"
-	"github.com/destafajri/golang-fiber/model/responses"
-	"github.com/destafajri/golang-fiber/service"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )

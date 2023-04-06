@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/destafajri/golang-fiber/model"
-	"github.com/destafajri/golang-fiber/repository"
+	"github.com/destafajri/golang-fiber/internal/model"
+	"github.com/destafajri/golang-fiber/internal/repository"
 )
 
 type ProductService interface {

@@ -19,11 +19,8 @@ func NewMySQLDatabase(configuration Config) *sql.DB {
 	defer cancel()
 
 	database, err := sql.Open("mysql", configuration.Get("MYSQL_URL"))
-	if err != nil {
-		panic(err)
-	}
-
 	exception.PanicIfNeeded(err)
+	defer database.Close()
 
 	err = database.Ping()
 	if err != nil {

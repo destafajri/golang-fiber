@@ -1,11 +1,11 @@
 package product
 
 import (
+	"github.com/destafajri/golang-fiber/internal/repository"
+	"github.com/destafajri/golang-fiber/internal/service"
+	"github.com/destafajri/golang-fiber/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/destafajri/golang-fiber/config"
-	"github.com/destafajri/golang-fiber/repository"
-	"github.com/destafajri/golang-fiber/service"
 )
 
 func createTestApp() *fiber.App {

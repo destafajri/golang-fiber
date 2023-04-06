@@ -10,7 +10,7 @@ LABEL maintainer="Desta <destafajri@gmail.com>"
 # Git is required for fetching the dependencies.
 RUN apk update && apk add --no-cache git
 
-WORKDIR /app
+WORKDIR /github.com/destafajri/golang-fiber
 
 # Download necessary Go modules
 COPY . .

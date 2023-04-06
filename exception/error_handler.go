@@ -1,12 +1,12 @@
 package exception
 
 import (
-	"github.com/destafajri/golang-fiber/model/responses"
+	"github.com/destafajri/golang-fiber/responses"
 	"github.com/gofiber/fiber/v2"
 )
 
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
-	
+
 	_, ok := err.(ValidationError)
 	if ok {
 		return ctx.Status(fiber.StatusUnprocessableEntity).JSON(responses.WebResponse{
